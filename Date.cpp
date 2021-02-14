@@ -41,6 +41,7 @@ public:
 
 int main() {
 	Date date{ 21, 2, 14 };
-	std::cout << sizeof(date) << std::endl;
+	std::cout << "Size of date in bytes: " << sizeof(date) << std::endl;
+	std::cout << "Date value: " << date.m_date << std::endl;
 	std::cout << "Year: 20" << date.GetYear() << ", Month: " << date.GetMonth() << ", Day: " << date.GetDay() << std::endl;
 }
