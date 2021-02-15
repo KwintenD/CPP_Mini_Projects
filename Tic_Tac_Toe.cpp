@@ -49,17 +49,18 @@ int main() {
 }
 
 void ProcessInput() {
+	Start:
 	std::cout << (g_isPlayerOne ? "Player 1\n" : "Player 2\n");
 
-	int input;
+	int input{};
 	std::cout << "Choose a cell: ";
 	std::cin >> input;
 
-	if (!g_pBoard->Get(input - 1)) {
+	if (input <= 9 && !g_pBoard->Get(input - 1)) {
 		g_pBoard->Set(input - 1, g_isPlayerOne ? 'X' : 'O');
 		g_isPlayerOne = !g_isPlayerOne;
 	}
-	else ProcessInput();
+	else goto Start;
 }
 
 Board::Board() : m_values{ '1', '2', '3', '4' ,'5' ,'6' ,'7' ,'8' ,'9' }, m_isNotAvailable{ } { }
@@ -115,12 +116,10 @@ bool Board::IsWin() const {
 	return false;
 }
 bool Board::IsFull() const {
-	bool isFull = true;
 	for (unsigned char i{}; i < sizeof(m_isNotAvailable) / sizeof(bool); i++) {
 		if (!m_isNotAvailable[i]) {
-			isFull = false;
-			break;
+			return false;
 		}
 	}
-	return isFull;
+	return true;
 }
